@@ -1,0 +1,39 @@
+import numpy as np
+import pandas as pd
+import string
+
+alphabet_string = string.ascii_lowercase
+alphabet_list = list(alphabet_string)
+brand = alphabet_list[:10]
+rank = np.arange(1,11)[::-1]
+manufacturer = np.random.randint(0,2,10)
+
+display(brand)
+
+display(rank)
+
+display(manufacturer)
+
+df = pd.DataFrame({"brand":brand,
+                  "rank":rank,
+                  "manufacturer":manufacturer})
+
+display(df)
+
+top_n = 5 #link this to slicer
+
+top5 = df.sort_values(by="rank", axis=0)[:top_n]
+display(top5)
+
+filter_list = list(top5.sort_values(by="rank", axis=0)["brand"])
+
+for i in list(df[df.manufacturer == 1]["brand"]):
+    if i not in filter_list:
+        filter_list.append(i)
+    else:
+        pass
+
+display(filter_list)
+
+filtered_df = df[df.brand.isin(filter_list)]
+display(filtered_df)
